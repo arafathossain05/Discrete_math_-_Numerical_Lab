@@ -1,31 +1,47 @@
-#include <iostream>
+#include<iostream>
+#include<iomanip>
 using namespace std;
 
 int main()
 {
-    int n = 4;
-    float x[4] = {5,6,9,11};
-    float y[4] = {12,13,14,16};
+  float x[4]={5,6,9,11};
+  float y[4]={12,13,14,16};
+  int n=4;
+  float xp=10;
+  float yp=0;
 
-    float xp = 10;
-    float yp = 0;
+  cout<<"Lagrange's interpolation formula step by step:\n";
+  cout<<fixed<<setprecision(4);
 
-    for(int i=0;i<n;i++)
+  for (int i = 0; i < n; i++)
+  {
+    float p=1;
+    bool first = true;
+
+    cout<<"\nL_"<<i<<"(x) : ";
+
+    for (int j = 0; j < n; j++)
     {
-        float p = 1;
+      if(i!=j)
+      {
+        if(!first) cout<<" * ";
 
-        for(int j=0;j<n;j++)
-        {
-            if(i != j)
-            {
-                p = p * (xp - x[j]) / (x[i] - x[j]);
-            }
-        }
+        cout<<"("<<xp<<"-"<<x[j]<<")/"<<"("<<x[i]<<"-"<<x[j]<<")";
 
-        yp = yp + p * y[i];
+        p = p*(xp-x[j])/(x[i]-x[j]);
+
+        first = false;
+      }
     }
 
-    cout << "Value of y when x = 10 : " << yp;
+    cout<<" = "<<p<<endl;
 
-    return 0;
+    yp = yp + p*y[i];
+    cout<<"\n";
+    
+  }
+
+  cout<<"\n\ninterpolated value p(10) : "<<yp<<endl;
+
+  return 0;
 }
